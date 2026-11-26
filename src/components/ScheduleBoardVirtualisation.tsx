@@ -10,10 +10,10 @@ type Props = {
   onSelect: (id: string) => void
 }
 
-// always selectable
+// locked jobs are not selectable
 export function ScheduleBoardVirtualisation({ jobId, status, crewCount, window, onSelect }: Props) {
   const label = useMemo(() => `Job ${jobId} · ${formatWindow(window)}`, [jobId, window])
-  const disabled = false
+  const disabled = !jobId || status === "locked"
 
   const handleSelect = useCallback(() => {
     if (disabled) return
